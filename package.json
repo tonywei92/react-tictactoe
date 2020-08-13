@@ -19,7 +19,9 @@
     "react-scripts": "3.4.3",
     "typescript": "~3.7.2",
     "tailwindcss": "^1.6.2",
-    "twin.macro": "^1.7.0"
+    "twin.macro": "^1.7.0",
+    "@emotion/core": "^10.0.34",
+    "@emotion/styled": "^10.0.27"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -44,10 +46,7 @@
       "last 1 safari version"
     ]
   },
-  "devDependencies": {
-    "@emotion/core": "^10.0.34",
-    "@emotion/styled": "^10.0.27"
-  },
+  "devDependencies": {},
   "babelMacros": {
     "twin": {
       "config": "tailwind.config.js",
