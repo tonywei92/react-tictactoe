@@ -5,6 +5,17 @@ enum StraightDirections {
   HORIZONTAL = 2,
 }
 
+const boardFull = (board: Array<string[]>): boolean => {
+  for (let i = 0; i < board.length; i += 1) {
+    for (let j = 0; j < board[i].length; j += 1) {
+      if (board[i][j] === '') {
+        return false;
+      }
+    }
+  }
+  return true;
+};
+
 const straightCheck = (
   board: Array<string[]>,
   direction: StraightDirections,
@@ -17,6 +28,10 @@ const straightCheck = (
     for (let j = 0; j < board.length; j += 1) {
       const currentSymbol =
         direction === StraightDirections.HORIZONTAL ? board[i][j] : board[j][i];
+      if (currentSymbol === '') {
+        xCount = 0;
+        xCount = 0;
+      }
       if (currentSymbol === 'x' && prevSymbol === 'x') {
         xCount += 1;
       }
@@ -55,6 +70,10 @@ const diagonalCheck = (
     let prevSymbol = '';
     for (let j = 0; j < board.length - i; j += 1) {
       const currentSymbol = board[i + j][j];
+      if (currentSymbol === '') {
+        xCount = 0;
+        xCount = 0;
+      }
       if (currentSymbol === 'x' && prevSymbol === 'x') {
         xCount += 1;
       }
@@ -85,6 +104,10 @@ const diagonalCheck = (
     let prevSymbol = '';
     for (let j = 0; j < board.length - i - 1; j += 1) {
       const currentSymbol = board[j][j + i + 1];
+      if (currentSymbol === '') {
+        xCount = 0;
+        xCount = 0;
+      }
       if (currentSymbol === 'x' && prevSymbol === 'x') {
         xCount += 1;
       }
@@ -116,6 +139,10 @@ const diagonalCheck = (
     let prevSymbol = '';
     for (let j = 0; j < i + 1; j += 1) {
       const currentSymbol = board[j][i - j];
+      if (currentSymbol === '') {
+        xCount = 0;
+        xCount = 0;
+      }
       if (currentSymbol === 'x' && prevSymbol === 'x') {
         xCount += 1;
       }
@@ -146,6 +173,10 @@ const diagonalCheck = (
     let prevSymbol = '';
     for (let j = 0; j < board.length - i; j += 1) {
       const currentSymbol = board[i + j][board.length - j - 1];
+      if (currentSymbol === '') {
+        xCount = 0;
+        xCount = 0;
+      }
       if (currentSymbol === 'x' && prevSymbol === 'x') {
         xCount += 1;
       }
@@ -194,7 +225,16 @@ const checkhasWinner = (
   if (checkWinner) {
     return checkWinner;
   }
+  if (boardFull(board)) {
+    return 'tie';
+  }
   return false;
+};
+
+const createGameBoard = (gridSize: number): Array<string[]> => {
+  return Array(gridSize)
+    .fill(null)
+    .map(() => Array(gridSize).fill(''));
 };
 
 export interface UseTicTacToeInterface {
@@ -202,17 +242,13 @@ export interface UseTicTacToeInterface {
   setPawn: (i: number, j: number) => void;
   playerXScore: number;
   playerOScore: number;
+  tie: number;
   winner: string;
   turn: number;
   getPlayerTurn: () => string;
+  nextTurn: () => void;
   retryGame: () => void;
 }
-
-const createGameBoard = (gridSize: number): Array<string[]> => {
-  return Array(gridSize)
-    .fill(null)
-    .map(() => Array(gridSize).fill(''));
-};
 
 // custom hook
 const useTicTacToe = (gridSizeProp = 3): UseTicTacToeInterface => {
@@ -221,28 +257,35 @@ const useTicTacToe = (gridSizeProp = 3): UseTicTacToeInterface => {
     gameBoard: createGameBoard(gridSizeProp),
     playerXScore: 0,
     playerOScore: 0,
+    tie: 0,
     turn: 1,
   });
 
-  let { gameBoard, winner, playerXScore, playerOScore, turn } = gameState;
+  let { gameBoard, winner, playerXScore, playerOScore, turn, tie } = gameState;
   const setPawn = (i: number, j: number): void => {
     gameBoard[i][j] = turn % 2 ? 'x' : 'o';
     turn += 1;
     const checkWinner = checkhasWinner(gameBoard, 3);
     if (checkWinner) {
-      if (winner === 'o') {
+      if (checkWinner === 'o') {
         playerOScore += 1;
         winner = 'o';
-      } else {
+      }
+      if (checkWinner === 'x') {
         playerXScore += 1;
         winner = 'x';
+      }
+      if (checkWinner === 'tie') {
+        tie += 1;
+        winner = 'tie';
       }
     }
     setGameState({
       ...gameState,
       turn,
-      gameBoard,
+      gameBoard: [...gameBoard],
       winner,
+      tie,
       playerOScore,
       playerXScore,
     });
@@ -258,17 +301,26 @@ const useTicTacToe = (gridSizeProp = 3): UseTicTacToeInterface => {
     });
   };
 
+  const nextTurn = () => {
+    setGameState({
+      ...gameState,
+      turn: turn + 1,
+    });
+  };
+
   return {
     gameBoard,
     setPawn,
     playerXScore,
     playerOScore,
+    tie,
     turn,
     winner,
-    getPlayerTurn: (): string => {
-      return turn % 2 ? 'o' : 'x';
-    },
+    nextTurn,
     retryGame,
+    getPlayerTurn: (): string => {
+      return turn % 2 === 0 ? 'o' : 'x';
+    },
   };
 };
 

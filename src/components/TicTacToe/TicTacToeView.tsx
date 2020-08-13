@@ -7,39 +7,33 @@ import Board from './Board';
 
 interface Props {
   tictactoe: UseTicTacToeInterface;
+  onEmptyHolderClick?: (i: number, j: number) => void;
 }
 
-const TicTacToe: React.FC<Props> = ({ tictactoe }) => {
-  const {
-    gameBoard,
-    setPawn,
-    winner,
-    turn,
-    playerOScore,
-    playerXScore,
-  } = tictactoe;
-
-  const handleEmptyHolderClick = (i: number, j: number): void => {
-    setPawn(i, j);
-    if (winner) {
-      console.log('winner is', winner);
-    }
-  };
-  return (
-    <div>
-      <div>
-        <Board
-          hasWinner={winner}
-          gameBoard={gameBoard}
-          onEmptyPawnclick={handleEmptyHolderClick}
-          turn={turn}
-        />
-        <div>X: {playerXScore}</div>
-        <div>Tie: 0</div>
-        <div>O: {playerOScore}</div>
-      </div>
-    </div>
-  );
-};
+const TicTacToe: React.FC<Props> = React.memo(
+  ({ tictactoe, onEmptyHolderClick }) => {
+    const { gameBoard, setPawn, winner, turn } = tictactoe;
+    const handleEmptyHolderClick = (i: number, j: number): void => {
+      setPawn(i, j);
+      if (onEmptyHolderClick) {
+        onEmptyHolderClick(i, j);
+      }
+    };
+    return (
+      <Board
+        hasWinner={winner}
+        gameBoard={gameBoard}
+        onEmptyPawnclick={handleEmptyHolderClick}
+        turn={turn}
+      />
+    );
+  },
+  (prevProps, nextProps) => {
+    return !(
+      prevProps.tictactoe.gameBoard !== nextProps.tictactoe.gameBoard ||
+      prevProps.tictactoe.turn !== nextProps.tictactoe.turn
+    );
+  }
+);
 
 export default TicTacToe;
