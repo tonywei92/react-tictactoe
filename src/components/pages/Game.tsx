@@ -18,7 +18,6 @@ import { GameStoreType } from 'stores/GameStore';
 import { useHistory } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { XHolder, OHolder } from 'components/TicTacToe/Pawn';
-import { time } from 'console';
 
 const { useTicTacToe } = TicTacToe;
 const bellSound = require('../../assets/bell.mp3');
