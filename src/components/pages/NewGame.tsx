@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import tw from 'twin.macro';
 import MainLayout from 'components/layouts/MainLayout';
-import GameLogo from 'components/views/GameLogo';
+import NavBar from 'components/UI/NavBar';
 import { GameStoreType } from 'stores/GameStore';
 import {
   SET_GRID_SIZE,
@@ -41,9 +41,13 @@ const NewGame = () => {
   };
   return (
     <MainLayout>
-      <div tw="flex">
-        <GameLogo />
-      </div>
+      <NavBar
+        leftButton={
+          <Button size="small" danger onClick={(): void => history.push('/')}>
+            Home
+          </Button>
+        }
+      />
       <div css={tw`w-full max-w-xs`}>
         <form tw="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
           <div tw="mb-4">

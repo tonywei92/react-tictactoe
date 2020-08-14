@@ -10,6 +10,7 @@ import gameStore from 'stores/GameStore';
 import HomePage from './components/pages/Home';
 import NewGamePage from './components/pages/NewGame';
 import GamePage from './components/pages/Game';
+import AboutPage from './components/pages/About';
 import 'tailwindcss/dist/base.min.css';
 
 const App: React.FC = () => {
@@ -20,6 +21,7 @@ const App: React.FC = () => {
           <Route path="/" exact component={HomePage} />
           <Route path="/newgame" exact component={NewGamePage} />
           <Route path="/game" exact component={GamePage} />
+          <Route path="/about" exact component={AboutPage} />
         </Switch>
       </Router>
     </Provider>

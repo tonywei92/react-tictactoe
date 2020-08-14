@@ -5,10 +5,10 @@ import { jsx } from '@emotion/core';
 import tw, { css } from 'twin.macro';
 import React, { useEffect } from 'react';
 import MainLayout from 'components/layouts/MainLayout';
-import GameLogo from 'components/views/GameLogo';
 import TicTacToe from 'components/TicTacToe';
 import Modal from 'components/UI/Modal';
 import Button from 'components/UI/Button';
+import NavBar from 'components/UI/NavBar';
 import ProgressBar from 'components/UI/ProgressBar';
 import ScoreBoard from 'components/UI/ScoreBoard';
 import Smile from 'components/UI/icons/Smile';
@@ -18,9 +18,11 @@ import { GameStoreType } from 'stores/GameStore';
 import { useHistory } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { XHolder, OHolder } from 'components/TicTacToe/Pawn';
+import { time } from 'console';
 
 const { useTicTacToe } = TicTacToe;
 const bellSound = require('../../assets/bell.mp3');
+const failSound = require('../../assets/fail.mp3');
 
 const animationPing = css`
   ${tw`absolute`}
@@ -55,8 +57,8 @@ const Game = () => {
     tie,
     nextTurn,
   } = ticTacToe;
-
   const timer = useTimer(timeLimit, () => {
+    new Audio(failSound).play();
     timer.resetTimer();
     timer.startTimer();
     nextTurn();
@@ -128,24 +130,23 @@ const Game = () => {
           'Uh oh, the game is tie!'
         ) : (
           <div tw="flex items-center">
-            Congratulations, the winner is&nbsp;
-            <div tw="w-12 h-8">
-              {winner.winner === 'x' ? <XHolder /> : <OHolder />}
+            <div>
+              Congratulations, the winner is&nbsp;
+              <div tw="w-12 h-8 inline-block align-middle">
+                {winner.winner === 'x' ? <XHolder /> : <OHolder />}
+              </div>
             </div>
           </div>
         )}
       </Modal>
-      <nav tw="mt-2 mb-6 flex w-full md:w-8/12 lg:w-6/12 p-4 justify-center relative">
-        <Button
-          size="small"
-          danger
-          tw="absolute left-0"
-          onClick={(): void => history.push('/')}
-        >
-          Home
-        </Button>
-        <GameLogo />
-      </nav>
+      <NavBar
+        leftButton={
+          <Button size="small" danger onClick={(): void => history.push('/')}>
+            Home
+          </Button>
+        }
+      />
+
       <ScoreBoard
         scores={[
           { label: 'Scored by X', score: playerXScore },
@@ -153,7 +154,8 @@ const Game = () => {
           { label: 'Scored by O', score: playerOScore },
         ]}
       />
-      <div tw="w-full md:w-8/12 p-4 flex flex-col justify-center items-center">
+
+      <div tw="w-full md:w-8/12 lg:w-6/12 p-4 flex flex-col justify-center items-center">
         <div css={tw`flex items-center justify-center mb-4 relative w-full`}>
           {!winner.winner ? (
             <div tw="w-16 mr-4 h-12 absolute" css={animationPing}>
@@ -164,12 +166,12 @@ const Game = () => {
           <div tw="w-16 mr-4 h-12">
             {ticTacToe.getPlayerTurn() === 'x' ? <XHolder /> : <OHolder />}
           </div>
-          <div tw="w-full h-full flex items-stretch justify-center">
+          <div tw="w-full h-full flex items-stretch justify-center items-center">
             <ProgressBar progress={timer.percentProgress} />
           </div>
         </div>
-        {TicTacToeGameRender}
       </div>
+      {TicTacToeGameRender}
     </MainLayout>
   );
 };
