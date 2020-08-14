@@ -5,6 +5,8 @@ import {
   Route,
   // Link
 } from 'react-router-dom';
+import { Provider } from 'react-redux';
+import gameStore from 'stores/GameStore';
 import HomePage from './components/pages/Home';
 import NewGamePage from './components/pages/NewGame';
 import GamePage from './components/pages/Game';
@@ -12,7 +14,7 @@ import 'tailwindcss/dist/base.min.css';
 
 const App: React.FC = () => {
   return (
-    <div className="App">
+    <Provider store={gameStore}>
       <Router>
         <Switch>
           <Route path="/" exact component={HomePage} />
@@ -20,7 +22,7 @@ const App: React.FC = () => {
           <Route path="/game" exact component={GamePage} />
         </Switch>
       </Router>
-    </div>
+    </Provider>
   );
 };
 
