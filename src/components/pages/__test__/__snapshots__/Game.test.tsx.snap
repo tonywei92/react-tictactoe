@@ -1,0 +1,254 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Link changes the class when hovered 1`] = `
+<div
+  className="css-y7ld5l-MainLayout"
+>
+  <div
+    className="css-5g8jmz-Modal"
+    style={
+      Object {
+        "top": "-200px",
+      }
+    }
+  >
+    <div
+      className="css-qfiafw-Modal"
+    >
+      <div
+        className="css-pmzcs3-Modal"
+      >
+        <svg
+          className="icon icon-tabler icon-tabler-mood-smile"
+          fill="none"
+          height="44"
+          stroke="#2c3e50"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth="1.5"
+          viewBox="0 0 24 24"
+          width="44"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M0 0h24v24H0z"
+            stroke="none"
+          />
+          <circle
+            cx="12"
+            cy="12"
+            r="9"
+          />
+          <line
+            x1="9"
+            x2="9.01"
+            y1="10"
+            y2="10"
+          />
+          <line
+            x1="15"
+            x2="15.01"
+            y1="10"
+            y2="10"
+          />
+          <path
+            d="M9.5 15a3.5 3.5 0 0 0 5 0"
+          />
+        </svg>
+      </div>
+      <div>
+        <div
+          className="css-1ji4y71-Game"
+        >
+          <div>
+            Congratulations, the winner is 
+            <div
+              className="css-16nfzq1-Game"
+            >
+              <div
+                className="css-lcxxtz-OHolder"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <hr />
+    <div
+      className="css-1tkpjih-Modal"
+    >
+      <button
+        className="css-bwrhao"
+        onClick={[Function]}
+        type="button"
+      >
+        Retry
+      </button>
+      <button
+        className="css-1lu8da-Game"
+        onClick={[Function]}
+        type="button"
+      >
+        Back to home
+      </button>
+    </div>
+  </div>
+  <nav
+    className="css-pt2wga-NavBar"
+  >
+    <div
+      className="css-ij8jdi-NavBar"
+    >
+      <div
+        className="css-1x6gbcb-NavBar"
+      >
+        <button
+          className="css-991rx"
+          onClick={[Function]}
+          type="button"
+        >
+          Home
+        </button>
+      </div>
+      <div
+        className="css-7kp6i0-GameLogo"
+      >
+        TicTacToe v
+      </div>
+    </div>
+  </nav>
+  <div
+    className="css-7qv59r-ScoreBoard"
+  >
+    <div
+      className="css-1wuj7j"
+    >
+      <div
+        className="css-gcsfdf"
+      >
+        0
+      </div>
+      <div
+        className="css-zx2i4y"
+      >
+        Scored by X
+      </div>
+    </div>
+    <div
+      className="css-1wuj7j"
+    >
+      <div
+        className="css-gcsfdf"
+      >
+        0
+      </div>
+      <div
+        className="css-zx2i4y"
+      >
+        Tie
+      </div>
+    </div>
+    <div
+      className="css-1wuj7j"
+    >
+      <div
+        className="css-gcsfdf"
+      >
+        0
+      </div>
+      <div
+        className="css-zx2i4y"
+      >
+        Scored by O
+      </div>
+    </div>
+  </div>
+  <div
+    className="css-17fo55a-Game"
+  >
+    <div
+      className="css-1vm4eyw-Game"
+    >
+      <div
+        className="css-yij87g-Game"
+      >
+        Hurry up!
+        <div
+          className="css-19qisku-XHolder"
+        />
+      </div>
+      <div
+        className="css-12dfc0p-Game"
+      >
+        <div
+          className="css-19qisku-XHolder"
+        />
+      </div>
+      <div
+        className="css-gipbfv-Game"
+      >
+        <div
+          className="css-s27jqe-ProgressBar"
+        >
+          <div
+            className="css-1gt18hc-ProgressBar"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    className="css-1va1icm-Board"
+  >
+    <div
+      className="gameContainerx css-m82zkr-Board"
+    >
+      <div
+        style={
+          Object {
+            "height": 0,
+            "overflow": "visible",
+            "width": 0,
+          }
+        }
+      >
+        <div
+          aria-label="grid"
+          aria-readonly={true}
+          className="ReactVirtualized__Grid css-1jj07fx"
+          onScroll={[Function]}
+          role="grid"
+          style={
+            Object {
+              "WebkitOverflowScrolling": "touch",
+              "boxSizing": "border-box",
+              "direction": "ltr",
+              "height": 0,
+              "overflowX": "hidden",
+              "overflowY": "hidden",
+              "position": "relative",
+              "width": 0,
+              "willChange": "transform",
+            }
+          }
+          tabIndex={0}
+        />
+      </div>
+    </div>
+  </div>
+  <div
+    className="css-10zc109-MainLayout"
+  >
+    <span>
+      Made with 
+      <span
+        aria-label="love symbol"
+        role="img"
+      >
+        ❤️
+      </span>
+        by Tony Song
+    </span>
+  </div>
+</div>
+`;
