@@ -1,37 +1,52 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 /* eslint-disable react-hooks/exhaustive-deps */
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
 import tw, { css } from 'twin.macro';
+import React, { useEffect } from 'react';
 import MainLayout from 'components/layouts/MainLayout';
+import GameLogo from 'components/views/GameLogo';
 import TicTacToe from 'components/TicTacToe';
 import Modal from 'components/UI/Modal';
 import Button from 'components/UI/Button';
 import ProgressBar from 'components/UI/ProgressBar';
+import ScoreBoard from 'components/UI/ScoreBoard';
 import Smile from 'components/UI/icons/Smile';
 import Suprised from 'components/UI/icons/Surprised';
 import useTimer from 'components/hooks/useTimer';
+import { GameStoreType } from 'stores/GameStore';
+import { useHistory } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import { XHolder, OHolder } from 'components/TicTacToe/Pawn';
-import { useEffect } from 'react';
 
 const { useTicTacToe } = TicTacToe;
+const bellSound = require('../../assets/bell.mp3');
 
-const animationPulse = css`
-  ${tw`animate-ping absolute`}
-  left:0;
-  @keyframes ping {
+const animationPing = css`
+  ${tw`absolute`}
+  animation: ping1 0.8s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  left: -6px;
+  top: -30px;
+  @keyframes ping1 {
     0% {
       transform: scale(1);
       opacity: 1;
     }
     100% {
-      transform: scale(1.2);
+      transform: scale(1.6);
       opacity: 0;
     }
   }
 `;
 
 const Game = () => {
-  const ticTacToe = useTicTacToe(10);
+  const gridSize = useSelector((state: GameStoreType) => state.gridSize);
+  const winningConditionSize = useSelector(
+    (state: GameStoreType) => state.winningSize
+  );
+  const timeLimit = useSelector((state: GameStoreType) => state.timeLimit);
+  const history = useHistory();
+  const ticTacToe = useTicTacToe(gridSize, winningConditionSize);
   const {
     winner,
     retryGame,
@@ -40,7 +55,8 @@ const Game = () => {
     tie,
     nextTurn,
   } = ticTacToe;
-  const timer = useTimer(10, () => {
+
+  const timer = useTimer(timeLimit, () => {
     timer.resetTimer();
     timer.startTimer();
     nextTurn();
@@ -51,22 +67,25 @@ const Game = () => {
     timer.startTimer();
   };
 
+  // start timer on game start
   useEffect(() => {
     timer.startTimer();
   }, []);
 
+  // start timer on game over
   useEffect(() => {
-    if (winner) {
+    if (winner.winner) {
       timer.resetTimer();
+      new Audio(bellSound).play();
     }
-  }, [winner]);
+  }, [winner.winner]);
 
   const modalButtons = [
     <Button
       size="small"
       key="retry"
       type="button"
-      onClick={() => {
+      onClick={(): void => {
         retryGame();
         timer.resetTimer();
         timer.startTimer();
@@ -74,57 +93,82 @@ const Game = () => {
     >
       Retry
     </Button>,
+    <Button
+      tw="ml-4"
+      size="small"
+      key="home"
+      type="button"
+      danger
+      onClick={(): void => {
+        history.push('/');
+      }}
+    >
+      Back to home
+    </Button>,
   ];
+
+  const TicTacToeGameRender = React.useMemo(
+    () => (
+      <TicTacToe
+        tictactoe={ticTacToe}
+        onEmptyHolderClick={handleEmptyHolderClick}
+      />
+    ),
+    [ticTacToe, handleEmptyHolderClick]
+  );
 
   return (
     <MainLayout>
       <Modal
-        visible={!!winner}
+        visible={!!winner.winner}
         buttons={modalButtons}
-        icon={winner === 'tie' ? <Suprised /> : <Smile />}
+        icon={winner.winner === 'tie' ? <Suprised /> : <Smile />}
       >
-        {winner === 'tie'
-          ? 'Uh oh, the game is tie!'
-          : `Congratulations, the winner is ${winner.toUpperCase()}!`}
+        {winner.winner === 'tie' ? (
+          'Uh oh, the game is tie!'
+        ) : (
+          <div tw="flex items-center">
+            Congratulations, the winner is&nbsp;
+            <div tw="w-12 h-8">
+              {winner.winner === 'x' ? <XHolder /> : <OHolder />}
+            </div>
+          </div>
+        )}
       </Modal>
-      <nav tw="mt-2 mb-6 flex">
-        <Button size="small">Back</Button>
-        <div tw="font-bold text-indigo-600 text-2xl mx-4">TicTacToe v1.0</div>
+      <nav tw="mt-2 mb-6 flex w-full md:w-8/12 lg:w-6/12 p-4 justify-center relative">
+        <Button
+          size="small"
+          danger
+          tw="absolute left-0"
+          onClick={(): void => history.push('/')}
+        >
+          Home
+        </Button>
+        <GameLogo />
       </nav>
-      <div tw="flex mb-8 bg-white shadow border rounded">
-        <div tw="px-2 border-r w-24 flex p-2 flex-col items-center">
-          <div tw="text-indigo-700 text-4xl font-bold">{playerXScore}</div>
-          <div tw="text-gray-600 font-bold text-xs">Scored by X</div>
-        </div>
-        <div tw="px-2 w-24 flex flex-col p-2 items-center">
-          <div tw="text-indigo-700 text-4xl font-bold ">{tie}</div>
-          <div tw="text-gray-600 font-bold text-xs">Tied</div>
-        </div>
-        <div tw="px-2 border-l w-24 flex p-2 flex-col items-center">
-          <div tw="text-indigo-700 text-4xl font-bold">{playerOScore}</div>
-          <div tw="text-gray-600 font-bold text-xs">Scored by O</div>
-        </div>
-      </div>
-      <div tw="w-full md:w-8/12 lg:w-6/12 p-4">
-        <div css={tw`flex items-center justify-center mb-4 relative`}>
-          {!winner ? (
-            <div tw="w-16 mr-4" css={animationPulse}>
+      <ScoreBoard
+        scores={[
+          { label: 'Scored by X', score: playerXScore },
+          { label: 'Tie', score: tie },
+          { label: 'Scored by O', score: playerOScore },
+        ]}
+      />
+      <div tw="w-full md:w-8/12 p-4 flex flex-col justify-center items-center">
+        <div css={tw`flex items-center justify-center mb-4 relative w-full`}>
+          {!winner.winner ? (
+            <div tw="w-16 mr-4 h-12 absolute" css={animationPing}>
               Hurry&nbsp;up!
               {ticTacToe.getPlayerTurn() === 'x' ? <XHolder /> : <OHolder />}
             </div>
           ) : null}
-          <div tw="w-16 mr-4">
-            {!winner ? <span>Hurry&nbsp;up!</span> : <span>&nbsp;</span>}
+          <div tw="w-16 mr-4 h-12">
             {ticTacToe.getPlayerTurn() === 'x' ? <XHolder /> : <OHolder />}
           </div>
           <div tw="w-full h-full flex items-stretch justify-center">
             <ProgressBar progress={timer.percentProgress} />
           </div>
         </div>
-        <TicTacToe
-          tictactoe={ticTacToe}
-          onEmptyHolderClick={handleEmptyHolderClick}
-        />
+        {TicTacToeGameRender}
       </div>
     </MainLayout>
   );

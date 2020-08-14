@@ -3,8 +3,8 @@ import { jsx } from '@emotion/core';
 import { useHistory } from 'react-router-dom';
 import Button from 'components/UI/Button';
 import tw from 'twin.macro';
-import MainLayout from '../layouts/MainLayout';
-import BasketBall from '../UI/icons/BasketBall';
+import MainLayout from 'components/layouts/MainLayout';
+import GameLogo from 'components/views/GameLogo';
 
 const menuStyle = tw`flex flex-col w-4/12`;
 const buttonStyle = tw`mb-3`;
@@ -30,12 +30,13 @@ const Home = () => {
 
   return (
     <MainLayout>
-      <h1>test</h1>
+      <nav tw="py-4">
+        <GameLogo />
+      </nav>
       <div css={menuStyle}>
         <Button
           css={buttonStyle}
           onClick={(): void => handleSelectedMenu(MENUS.MENU_NEW_GAME)}
-          icon={<BasketBall />}
         >
           New Game
         </Button>
