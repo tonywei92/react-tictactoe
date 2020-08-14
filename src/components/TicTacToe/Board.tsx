@@ -4,26 +4,14 @@
 import { jsx, SerializedStyles } from '@emotion/core';
 import React from 'react';
 import tw, { css } from 'twin.macro';
+import { Grid, AutoSizer, GridCellProps } from 'react-virtualized';
 import { EmptyHolder, OHolder, XHolder } from './Pawn';
 import { WinnerInterface } from './useTicTacToe';
-
-const gridStyle = (gridSize: number): SerializedStyles =>
-  css`
- 
-    ${tw`grid select-none gap-1 w-full h-full`}
-    grid-template-columns: repeat(${gridSize}, minmax(0, 1fr));
-    width: calc(${gridSize} * 4rem);
-    height: calc(${gridSize} * 4rem);
-    ${gridSize > 10 && `width: calc(${gridSize} * 3rem);`}
-    ${gridSize > 10 && `height: calc(${gridSize} * 3rem);`}
-    ${gridSize > 20 && `width: calc(${gridSize} * 2rem);`}
-    ${gridSize > 20 && `height: calc(${gridSize} * 2rem);`}
-  `;
 
 const winningAnimation = (): SerializedStyles =>
   css`
     ${tw`pointer-events-none bg-green-500 rounded-full`}
-    ${tw`absolute w-full h-full`}
+    ${tw`absolute w-64 h-64`}
     animation: ping 0.5s cubic-bezier(0, 0, 0.2, 1);
     animation-fill-mode: forwards;
 
@@ -39,6 +27,13 @@ const winningAnimation = (): SerializedStyles =>
       }
     }
   `;
+
+const gameAreaSizeStyle = (gridSize: number): SerializedStyles => css`
+  ${tw`pb-8`}
+  width: calc(55px * ${gridSize});
+  max-width: 100vh;
+  flex: '1 1 auto';
+`;
 
 interface Props {
   hasWinner?: WinnerInterface;
@@ -64,47 +59,68 @@ const Board: React.FC<Props> = (props) => {
     }
     return false;
   };
-  const boardRender = (
-    <div css={gridStyle(gridSize)}>
-      {gameBoard.map((gameRow, i) =>
-        gameRow.map((gameTile, j) => {
-          if (gameTile === 'x') {
-            return (
-              <div tw="w-full h-full" key={`${i}, ${j}`}>
-                <XHolder ping pulse={partOfWinner(i, j)} />
-              </div>
-            );
-          }
-          if (gameTile === 'o') {
-            return (
-              <div tw="w-full h-full" key={`${i}, ${j}`}>
-                <OHolder ping pulse={partOfWinner(i, j)} />
-              </div>
-            );
-          }
-          return (
-            <div tw="w-full h-full" key={`${i}, ${j}`}>
-              <EmptyHolder
-                hasWinner={hasWinner ? !!hasWinner.winner : false}
-                turn={turn}
-                onClick={(): void => {
-                  if (!hasWinner?.winner) {
-                    if (onEmptyPawnclick) {
-                      onEmptyPawnclick(i, j);
-                    }
-                  }
-                }}
-              />
-            </div>
-          );
-        })
-      )}
-    </div>
-  );
+
+  const boardRender = ({
+    columnIndex,
+    key,
+    rowIndex,
+    style,
+  }: GridCellProps): React.ReactNode => {
+    const gameTile = gameBoard[rowIndex][columnIndex];
+    if (gameTile === 'x') {
+      return (
+        <div key={key} tw="p-1" style={style}>
+          <XHolder ping pulse={partOfWinner(rowIndex, columnIndex)} />
+        </div>
+      );
+    }
+    if (gameTile === 'o') {
+      return (
+        <div key={key} tw="p-1" style={style}>
+          <OHolder ping pulse={partOfWinner(rowIndex, columnIndex)} />
+        </div>
+      );
+    }
+    return (
+      <div key={key} tw="p-1" style={style}>
+        <EmptyHolder
+          hasWinner={hasWinner ? !!hasWinner.winner : false}
+          turn={turn}
+          onClick={(): void => {
+            if (!hasWinner?.winner) {
+              if (onEmptyPawnclick) {
+                onEmptyPawnclick(rowIndex, columnIndex);
+              }
+            }
+          }}
+        />
+      </div>
+    );
+  };
   return (
-    <div css={tw`relative`}>
+    <div tw="h-full w-full flex justify-center">
       {hasWinner?.winner && <div css={winningAnimation} />}
-      {boardRender}
+      <div css={gameAreaSizeStyle(gridSize)} className="gameContainerx">
+        <AutoSizer>
+          {({ width, height }) => (
+            <Grid
+              cellRenderer={boardRender}
+              columnWidth={55}
+              columnCount={gameBoard.length}
+              height={height}
+              tw="outline-none"
+              // noContentRenderer={this._noContentRenderer}
+              // overscanColumnCount={overscanColumnCount}
+              // overscanRowCount={overscanRowCount}
+              rowHeight={55}
+              rowCount={gameBoard.length}
+              // scrollToColumn={scrollToColumn}
+              // scrollToRow={scrollToRow}
+              width={width}
+            />
+          )}
+        </AutoSizer>
+      </div>
     </div>
   );
 };

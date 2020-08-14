@@ -148,6 +148,7 @@ interface EmptyHolderProps {
 interface HolderProps {
   ping?: boolean;
   pulse?: boolean;
+  style?: React.CSSProperties;
 }
 
 export const OHolder: React.FC<HolderProps> = (props) => {
@@ -160,9 +161,9 @@ export const OHolder: React.FC<HolderProps> = (props) => {
 };
 
 export const XHolder: React.FC<HolderProps> = (props) => {
-  const { ping, pulse } = props;
+  const { ping, pulse, style } = props;
   return (
-    <div css={xHolderStyle(false, pulse)}>
+    <div css={xHolderStyle(false, pulse)} style={style}>
       {ping && <div css={xHolderStyle(ping)} />}
     </div>
   );
@@ -173,8 +174,6 @@ export const EmptyHolder: React.FC<EmptyHolderProps> = ({
   hasWinner,
   onClick,
 }) => {
-  console.log('pawn rerender');
-
   return (
     <div css={emptyHolderContainerStyle(turn, !!hasWinner)}>
       <button
