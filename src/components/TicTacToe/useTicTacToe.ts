@@ -2,7 +2,7 @@
 import { useState, useEffect } from 'react';
 import { createGameBoard } from './utils';
 
-enum StraightDirections {
+export enum StraightDirections {
   VERTICAL = 1,
   HORIZONTAL = 2,
 }
@@ -262,7 +262,7 @@ const diagonalCheck = (
   return { winner: null, positions: [] };
 };
 
-const checkhasWinner = (
+export const checkhasWinner = (
   board: Array<string[]>,
   winLength: number
 ): WinnerInterface => {
