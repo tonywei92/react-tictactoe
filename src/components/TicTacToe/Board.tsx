@@ -5,11 +5,19 @@ import { jsx, SerializedStyles } from '@emotion/core';
 import React from 'react';
 import tw, { css } from 'twin.macro';
 import { EmptyHolder, OHolder, XHolder } from './Pawn';
+import { WinnerInterface } from './useTicTacToe';
 
 const gridStyle = (gridSize: number): SerializedStyles =>
   css`
+ 
     ${tw`grid select-none gap-1 w-full h-full`}
     grid-template-columns: repeat(${gridSize}, minmax(0, 1fr));
+    width: calc(${gridSize} * 4rem);
+    height: calc(${gridSize} * 4rem);
+    ${gridSize > 10 && `width: calc(${gridSize} * 3rem);`}
+    ${gridSize > 10 && `height: calc(${gridSize} * 3rem);`}
+    ${gridSize > 20 && `width: calc(${gridSize} * 2rem);`}
+    ${gridSize > 20 && `height: calc(${gridSize} * 2rem);`}
   `;
 
 const winningAnimation = (): SerializedStyles =>
@@ -33,40 +41,58 @@ const winningAnimation = (): SerializedStyles =>
   `;
 
 interface Props {
-  hasWinner: string;
+  hasWinner?: WinnerInterface;
   gameBoard: Array<string[]>;
-  onEmptyPawnclick: (i: number, j: number) => void;
-  turn: number;
+  onEmptyPawnclick?: (i: number, j: number) => void;
+  turn?: number;
 }
 
 const Board: React.FC<Props> = (props) => {
-  const { gameBoard, hasWinner, onEmptyPawnclick, turn } = props;
+  const { gameBoard, hasWinner, onEmptyPawnclick, turn = 0 } = props;
   const gridSize = gameBoard.length;
+
+  const partOfWinner = (indexI: number, indexJ: number): boolean => {
+    if (hasWinner) {
+      const { positions } = hasWinner;
+      if (hasWinner.winner) {
+        for (let i = 0; i < positions.length; i += 1) {
+          if (positions[i][0] === indexI && positions[i][1] === indexJ) {
+            return true;
+          }
+        }
+      }
+    }
+    return false;
+  };
   const boardRender = (
     <div css={gridStyle(gridSize)}>
       {gameBoard.map((gameRow, i) =>
         gameRow.map((gameTile, j) => {
           if (gameTile === 'x') {
             return (
-              <div key={`${i}, ${j}`}>
-                <XHolder />
+              <div tw="w-full h-full" key={`${i}, ${j}`}>
+                <XHolder ping pulse={partOfWinner(i, j)} />
               </div>
             );
           }
           if (gameTile === 'o') {
             return (
-              <div key={`${i}, ${j}`}>
-                <OHolder />
+              <div tw="w-full h-full" key={`${i}, ${j}`}>
+                <OHolder ping pulse={partOfWinner(i, j)} />
               </div>
             );
           }
           return (
-            <div key={`${i}, ${j}`}>
+            <div tw="w-full h-full" key={`${i}, ${j}`}>
               <EmptyHolder
-                hasWinner={!!hasWinner}
+                hasWinner={hasWinner ? !!hasWinner.winner : false}
                 turn={turn}
                 onClick={(): void => {
-                  if (!hasWinner) onEmptyPawnclick(i, j);
+                  if (!hasWinner?.winner) {
+                    if (onEmptyPawnclick) {
+                      onEmptyPawnclick(i, j);
+                    }
+                  }
                 }}
               />
             </div>
@@ -77,7 +103,7 @@ const Board: React.FC<Props> = (props) => {
   );
   return (
     <div css={tw`relative`}>
-      {hasWinner && <div css={winningAnimation} />}
+      {hasWinner?.winner && <div css={winningAnimation} />}
       {boardRender}
     </div>
   );
