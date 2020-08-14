@@ -20,7 +20,10 @@ const Home = () => {
       />
       <p>Made by Tony Song</p>
       <p>
-        <a tw="text-blue-500 underline" href="https://github.com/tonywei92">
+        <a
+          css={tw`text-blue-500 underline`}
+          href="https://github.com/tonywei92"
+        >
           Github
         </a>
       </p>
