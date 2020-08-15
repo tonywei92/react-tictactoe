@@ -78,14 +78,14 @@ exports[`Link changes the class when hovered 1`] = `
       className="css-1tkpjih-Modal"
     >
       <button
-        className="css-bwrhao"
+        className="css-rvw9k7"
         onClick={[Function]}
         type="button"
       >
         Retry
       </button>
       <button
-        className="css-1lu8da-Game"
+        className="css-1lmys2w-Game"
         onClick={[Function]}
         type="button"
       >
@@ -103,7 +103,7 @@ exports[`Link changes the class when hovered 1`] = `
         className="css-1x6gbcb-NavBar"
       >
         <button
-          className="css-991rx"
+          className="css-19j81ss"
           onClick={[Function]}
           type="button"
         >
@@ -111,7 +111,7 @@ exports[`Link changes the class when hovered 1`] = `
         </button>
       </div>
       <div
-        className="css-7kp6i0-GameLogo"
+        className="css-200zck-GameLogo"
       >
         TicTacToe v
       </div>
@@ -237,7 +237,7 @@ exports[`Link changes the class when hovered 1`] = `
     </div>
   </div>
   <div
-    className="css-10zc109-MainLayout"
+    className="css-158bw6j-MainLayout"
   >
     <span>
       Made with 
