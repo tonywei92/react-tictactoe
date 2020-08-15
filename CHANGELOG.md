@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.5](https://github.com/tonywei92/react-tictactoe/compare/v0.1.4...v0.1.5) (2020-08-15)
+
+
+### Bug Fixes
+
+* remove useless URL prefixes because already implemented hash URL ([20d251c](https://github.com/tonywei92/react-tictactoe/commit/20d251c9fbab448811f2e91152153ede4c2744f6))
+
 ### [0.1.4](https://github.com/tonywei92/react-tictactoe/compare/v0.1.3...v0.1.4) (2020-08-15)
 
 
