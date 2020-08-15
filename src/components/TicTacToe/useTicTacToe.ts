@@ -99,6 +99,7 @@ const diagonalCheck = (
       }
       if (currentSymbol === 'x' && prevSymbol === 'x') {
         xCount += 1;
+        positionArr.push(position);
       }
       if (currentSymbol === 'x' && prevSymbol !== 'x') {
         xCount = 1;
