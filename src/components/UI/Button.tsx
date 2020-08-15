@@ -8,6 +8,7 @@ interface Props extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   size?: ButtonSizes;
   icon?: React.ReactNode;
   danger?: boolean;
+  type?: 'button' | 'submit' | 'reset';
 }
 
 const defaultStyle = tw`
@@ -45,13 +46,13 @@ const style = (size: ButtonSizes, danger: boolean): SerializedStyles => css`
 `;
 
 const Button = forwardRef<HTMLButtonElement, Props>((props, ref) => {
-  const { children, icon, size = 'normal', danger, ...rest } = props;
+  const { children, icon, type, size = 'normal', danger, ...rest } = props;
   return (
     // eslint-disable-next-line react/button-has-type
     <button
       css={style(size, !!danger)}
       ref={ref}
-      type="button"
+      type={type}
       // eslint-disable-next-line react/jsx-props-no-spreading
       {...rest}
     >
