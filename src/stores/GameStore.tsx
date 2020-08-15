@@ -25,7 +25,11 @@ function gameReducer(
         gridSize: action.payload > 1000 ? 1000 : action.payload,
       };
     case SET_WINNING_SIZE:
-      return { ...state, winningSize: action.payload };
+      return {
+        ...state,
+        winningSize:
+          action.payload > state.gridSize ? state.gridSize : action.payload,
+      };
     case SET_TIME_LIMIT:
       return { ...state, timeLimit: action.payload };
     default:
