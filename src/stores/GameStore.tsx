@@ -14,22 +14,62 @@ const initialState = {
 
 export type GameStoreType = typeof initialState;
 
+const getValidWinningSize = (winningSize: number, gridSize: number): number => {
+  let validWinningSize = winningSize;
+  let min = 3;
+  if (gridSize > 3) {
+    min = 4;
+  }
+  if (winningSize < min) {
+    validWinningSize = min;
+  }
+  if (winningSize > gridSize) {
+    validWinningSize = gridSize;
+  }
+  return validWinningSize;
+};
+
+const getValidGridSize = (gridSize: number): number => {
+  const min = 3;
+  const max = 1000;
+  let validGridSize = gridSize;
+  if (validGridSize < min) {
+    validGridSize = min;
+  }
+  if (validGridSize > max) {
+    validGridSize = max;
+  }
+  return validGridSize;
+};
+
 function gameReducer(
   state = initialState,
   action: GameActionTypes
 ): GameStoreType {
   switch (action.type) {
-    case SET_GRID_SIZE:
+    case SET_GRID_SIZE: {
+      const nextGridSize = getValidGridSize(action.payload);
+      const nextWinningSize = getValidWinningSize(
+        state.winningSize,
+        nextGridSize
+      );
       return {
         ...state,
-        gridSize: action.payload > 1000 ? 1000 : action.payload,
+        gridSize: nextGridSize,
+        winningSize: nextWinningSize,
       };
-    case SET_WINNING_SIZE:
+    }
+    case SET_WINNING_SIZE: {
+      const nextWinningSize = getValidWinningSize(
+        action.payload,
+        state.gridSize
+      );
       return {
         ...state,
-        winningSize:
-          action.payload > state.gridSize ? state.gridSize : action.payload,
+        winningSize: nextWinningSize,
       };
+    }
+
     case SET_TIME_LIMIT:
       return { ...state, timeLimit: action.payload };
     default:
