@@ -14,6 +14,7 @@ const defaultStyle = tw`
   inline-flex
   rounded focus:outline-none
   relative
+  justify-center
 `;
 
 const primaryStyle = tw`
