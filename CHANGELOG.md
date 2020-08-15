@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.7](https://github.com/tonywei92/react-tictactoe/compare/v0.1.6...v0.1.7) (2020-08-15)
+
+
+### Bug Fixes
+
+* reduce iOS audio delay ([0590992](https://github.com/tonywei92/react-tictactoe/commit/0590992bc0995987235e322f225dfda22ef8ba2c))
+
 ### [0.1.6](https://github.com/tonywei92/react-tictactoe/compare/v0.1.5...v0.1.6) (2020-08-15)
 
 
