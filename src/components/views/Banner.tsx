@@ -8,10 +8,10 @@ const Banner = () => {
     <div
       css={css`
         ${tw`relative`}
-        width: 300px;
+        width: 320px;
         height: 100px;
         transform: scale(0.8);
-        transform-origin: left top;
+        transform-origin: center center;
       `}
     >
       <div
@@ -19,7 +19,7 @@ const Banner = () => {
           ${tw`absolute shadow`}
           width: 60px;
           height: 60px;
-          left: 0px;
+          left: -10px;
           transform: rotate(-24deg);
         `}
       >
