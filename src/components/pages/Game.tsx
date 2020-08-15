@@ -56,12 +56,19 @@ const Game = () => {
     tie,
     nextTurn,
   } = ticTacToe;
+
   const timer = useTimer(timeLimit, () => {
     new Audio(failSound).play();
     timer.resetTimer();
     timer.startTimer();
     nextTurn();
   });
+
+  const restartGame = (): void => {
+    retryGame();
+    timer.resetTimer();
+    timer.startTimer();
+  };
 
   const handleEmptyHolderClick = (): void => {
     timer.resetTimer();
@@ -87,9 +94,7 @@ const Game = () => {
       key="retry"
       type="button"
       onClick={(): void => {
-        retryGame();
-        timer.resetTimer();
-        timer.startTimer();
+        restartGame();
       }}
     >
       Retry
@@ -142,6 +147,11 @@ const Game = () => {
         leftButton={
           <Button size="small" danger onClick={(): void => history.push('/')}>
             Home
+          </Button>
+        }
+        rightButton={
+          <Button size="small" onClick={(): void => restartGame()}>
+            Restart
           </Button>
         }
       />
