@@ -4,6 +4,10 @@ import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 
+const AudioContext = window.AudioContext || window.webkitAudioContext;
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const audioCtx = new AudioContext();
+
 ReactDOM.render(
   <React.StrictMode>
     <App />

@@ -16,5 +16,5 @@
     "noEmit": true,
     "jsx": "react"
   },
-  "include": ["src", "twin.d.ts"]
+  "include": ["src", "twin.d.ts", "AudioContext.d.ts"]
 }
