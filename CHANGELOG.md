@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.4](https://github.com/tonywei92/react-tictactoe/compare/v0.1.3...v0.1.4) (2020-08-15)
+
+
+### Bug Fixes
+
+* prevent winning condition length more than grid size ([547f184](https://github.com/tonywei92/react-tictactoe/commit/547f1842418396d479a563d822a97100a6721913))
+
 ### [0.1.3](https://github.com/tonywei92/react-tictactoe/compare/v0.1.1...v0.1.3) (2020-08-15)
 
 
