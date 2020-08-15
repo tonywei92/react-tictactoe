@@ -55,13 +55,14 @@ const NewGame = () => {
               tw="block text-gray-700 text-sm font-bold mb-2"
               htmlFor="username"
             >
-              Grid Size
+              Grid Size (max: 1000)
             </label>
             <input
               type="number"
               tw="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               id="username"
               min={3}
+              max={1000}
               value={gridSize}
               onChange={dispatchGridSize}
             />
