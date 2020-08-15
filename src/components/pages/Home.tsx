@@ -7,7 +7,7 @@ import NavBar from 'components/UI/NavBar';
 import MainLayout from 'components/layouts/MainLayout';
 import Banner from 'components/views/Banner';
 
-const menuStyle = tw`flex flex-col w-8/12 md:w-2/12`;
+const menuStyle = tw`flex flex-col w-8/12 md:w-4/12 xl:w-2/12`;
 const buttonStyle = tw`mb-3`;
 
 enum MENUS {
@@ -35,7 +35,7 @@ const Home = () => {
     <MainLayout>
       <NavBar />
       <div css={menuStyle}>
-        <div tw="flex items-center mb-4">
+        <div tw="flex items-center justify-center mb-4">
           <Banner />
         </div>
         <Button
