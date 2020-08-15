@@ -17,7 +17,7 @@ import 'tailwindcss/dist/base.min.css';
 const App: React.FC = () => {
   return (
     <Provider store={gameStore}>
-      <Router basename="/react-tictactoe">
+      <Router>
         <Switch>
           <Route path="/" exact component={HomePage} />
           <Route path="/newgame" exact component={NewGamePage} />
