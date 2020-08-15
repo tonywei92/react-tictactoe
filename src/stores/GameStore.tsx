@@ -20,7 +20,10 @@ function gameReducer(
 ): GameStoreType {
   switch (action.type) {
     case SET_GRID_SIZE:
-      return { ...state, gridSize: action.payload };
+      return {
+        ...state,
+        gridSize: action.payload > 1000 ? 1000 : action.payload,
+      };
     case SET_WINNING_SIZE:
       return { ...state, winningSize: action.payload };
     case SET_TIME_LIMIT:
