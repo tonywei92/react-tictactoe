@@ -5,8 +5,9 @@ import Button from 'components/UI/Button';
 import tw from 'twin.macro';
 import NavBar from 'components/UI/NavBar';
 import MainLayout from 'components/layouts/MainLayout';
+import Banner from 'components/views/Banner';
 
-const menuStyle = tw`flex flex-col w-4/12 md:w-2/12`;
+const menuStyle = tw`flex flex-col w-8/12 md:w-2/12`;
 const buttonStyle = tw`mb-3`;
 
 enum MENUS {
@@ -25,6 +26,7 @@ const Home = () => {
         history.push('/about');
         break;
       default:
+        // eslint-disable-next-line no-console
         console.error('invalid menu selected');
     }
   };
@@ -33,6 +35,7 @@ const Home = () => {
     <MainLayout>
       <NavBar />
       <div css={menuStyle}>
+        <Banner />
         <Button
           css={buttonStyle}
           onClick={(): void => handleSelectedMenu(MENUS.MENU_NEW_GAME)}
