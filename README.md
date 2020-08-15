@@ -34,7 +34,9 @@ $ npm run build
 
 ## Development
 
-Running with development environment
+You can read [CHANGELOG](CHANGELOG.md) here.
+
+Running with development environment:
 
 ```
 $ yarn start
