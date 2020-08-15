@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.8](https://github.com/tonywei92/react-tictactoe/compare/v0.1.7...v0.1.8) (2020-08-15)
+
+
+### Bug Fixes
+
+* body height become long on winning the game ([4a9c2c8](https://github.com/tonywei92/react-tictactoe/commit/4a9c2c8054261f66a2bd05ef0c628dd37ae01f95))
+
 ### [0.1.7](https://github.com/tonywei92/react-tictactoe/compare/v0.1.6...v0.1.7) (2020-08-15)
 
 
