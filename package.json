@@ -1,6 +1,6 @@
 {
   "name": "react-tictactoe",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "private": true,
   "homepage": "https://tonywei92.github.io/react-tictactoe",
   "dependencies": {
@@ -41,7 +41,8 @@
     "format": "prettier --write src/**/*.{js,jsx,ts,tsx}",
     "lint": "eslint --fix src/**/*.{js,jsx,ts,tsx}",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
+    "deploy": "gh-pages -d build",
+    "release": "standard-version"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -60,7 +61,8 @@
   },
   "devDependencies": {
     "gh-pages": "^3.1.0",
-    "react-test-renderer": "^16.13.1"
+    "react-test-renderer": "^16.13.1",
+    "standard-version": "^9.0.0"
   },
   "babelMacros": {
     "twin": {
