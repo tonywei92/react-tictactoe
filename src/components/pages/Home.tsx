@@ -35,7 +35,9 @@ const Home = () => {
     <MainLayout>
       <NavBar />
       <div css={menuStyle}>
-        <Banner />
+        <div tw="flex items-center mb-4">
+          <Banner />
+        </div>
         <Button
           css={buttonStyle}
           onClick={(): void => handleSelectedMenu(MENUS.MENU_NEW_GAME)}
