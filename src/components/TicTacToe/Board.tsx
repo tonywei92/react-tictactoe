@@ -11,7 +11,7 @@ import { WinnerInterface } from './useTicTacToe';
 const winningAnimation = (): SerializedStyles =>
   css`
     ${tw`pointer-events-none bg-green-500 rounded-full`}
-    ${tw`absolute w-64 h-64`}
+    ${tw`fixed w-64 h-64`}
     animation: ping 0.5s cubic-bezier(0, 0, 0.2, 1);
     animation-fill-mode: forwards;
 
