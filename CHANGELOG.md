@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.9](https://github.com/tonywei92/react-tictactoe/compare/v0.1.8...v0.1.9) (2020-08-15)
+
+
+### Features
+
+* add restart game button ([dae88ca](https://github.com/tonywei92/react-tictactoe/commit/dae88ca021b68798481308bec06b5504898f625a))
+
+
+### Bug Fixes
+
+* protect game rules input ([e27f0e7](https://github.com/tonywei92/react-tictactoe/commit/e27f0e765dc10cdada74046d581db91365264ef9))
+
 ### [0.1.8](https://github.com/tonywei92/react-tictactoe/compare/v0.1.7...v0.1.8) (2020-08-15)
 
 
