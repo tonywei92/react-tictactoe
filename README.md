@@ -1,6 +1,6 @@
 # React TicTacToe
 
-A TicTacToe game based on React Web App
+A TicTacToe game based on [React](https://reactjs.org/) Web App
 
 <div align="center">
     <img src="/resources/screenshot.png" width="400px"</img> 
@@ -16,16 +16,44 @@ A TicTacToe game based on React Web App
 
 ```bash
 $ npm install
+
 or
+
 $ yarn install
 ```
 
-## Running
+## Building
 
 ```
-$ yarn start
+$ yarn build
+
 or
-$ npm start
+
+$ npm run build
 ```
 
 ## Development
+
+Running with development environment
+
+```
+$ yarn start
+
+or
+
+$ npm start
+```
+
+### Testing
+
+There are two types of tests, Unit test and Snapshot test. To run the tests, run following command:
+
+```
+$ yarn test
+
+or
+
+$ npm start test
+```
+
+You can read about [Jest](https://jestjs.io/docs/en/tutorial-react) here
